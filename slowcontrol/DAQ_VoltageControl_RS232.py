@@ -185,7 +185,9 @@ CompFlag=0 #Error flag
 #Here we track both the actual reading and what this reading should be
 #CurrentVoltage = what the voltage should be
 #VoltageRead = what the voltage read from the instrument is
-    
+
+DAQ_ParamsLoaded = 0
+
 while(EndFlag==0):
 
     CurrentVoltage = VoltageRead #Keep track of voltage as increase it
@@ -274,17 +276,20 @@ while(EndFlag==0):
                     print("Option not implemented yet sorry :( ")
                 elif (DAQ_default=="y" or DAQ_default=="yes" or DAQ_default=="Y" or DAQ_default=="Yes"):
                     try:
-                        outFile = r"./example.dat"
-                        print("output file for DAQ:", outFile)
-                        picoscopes = ['IW114/0004']
-                        daq.seriesInitDaq(picoscopes[0])
-                        daq.seriesSetDaqSettings(
-                            0, 2, 1100,
-                            0, 2, 1000,
-                            0, 2, 1000,
-                            0, 2, 1000,
-                            100, 2, 20000, 0)
-                        daq.seriesCollectData(outFile)
+                        print("Input name for the DAQ output file:")
+                        DAQ_outFile = r"./"+str(input())+".dat"
+                        print("output file for DAQ :", DAQ_outFile)
+                        if (DAQ_ParamsLoaded == 0):
+                            picoscopes = ['IW114/0004']
+                            daq.seriesInitDaq(picoscopes[0])
+                            daq.seriesSetDaqSettings(
+                                0, 2, 1100,
+                                0, 2, 1000,
+                                0, 2, 1000,
+                                0, 2, 1000,
+                                100, 2, 20000, 0)
+                            DAQ_ParamsLoaded = 1 
+                        daq.seriesCollectData(DAQ_outFile)
                         daq.seriesCloseDaq()    
                     except:
                         print("An error occured during DAQ.")
