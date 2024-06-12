@@ -269,12 +269,13 @@ while(EndFlag==0):
                 print("")     
             elif(VComm=="DAQ"):
                 print("Strart DAQ with default parameters? (y/n): ")
-                DAQ_output = string(input())
-                if (DAQ_output=="n"):
+                DAQ_default = string(input())
+                if (DAQ_default=="n"):
                     print("Option not implemented yet sorry :( ")
-                elif (DAQ_output=="y"):
+                elif (DAQ_default=="y"):
                     try:
                         outFile = r"./example.dat"
+                        print("output file for DAQ:", outFile)
                         picoscopes = ['IW114/0004']
                         daq.seriesInitDaq(picoscopes[0])
                         daq.seriesSetDaqSettings(
@@ -284,12 +285,11 @@ while(EndFlag==0):
                             0, 2, 1000,
                             100, 2, 20000, 0)
                         daq.seriesCollectData(outFile)
-                        daq.seriesCloseDaq()
-                        
+                        daq.seriesCloseDaq()    
                     except:
-                        print("An error occured during DAQ, ramping down voltage")
-                        ZeroVoltage(VoltageRead,instrument)
-                        
+                        print("An error occured during DAQ, safely ramping down voltage")
+                        EndFlag=1
+                        print("Ramping voltage down now!")               
             elif(VComm=="NI"):
                 print("Enter new below threshold increment voltage (0.1f): ")
                 NormIncrement = float(input())
