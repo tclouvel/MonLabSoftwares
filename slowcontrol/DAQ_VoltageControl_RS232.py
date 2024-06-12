@@ -269,7 +269,7 @@ while(EndFlag==0):
                 print("")     
             elif(VComm=="DAQ"):
                 print("Strart DAQ with default parameters? (y/n): ")
-                DAQ_default = string(input())
+                DAQ_default = str(input())
                 if (DAQ_default=="n"):
                     print("Option not implemented yet sorry :( ")
                 elif (DAQ_default=="y"):
