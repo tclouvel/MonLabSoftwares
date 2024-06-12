@@ -278,7 +278,7 @@ while(EndFlag==0):
                     try:
                         print("Input name for the DAQ output file:")
                         DAQ_outFile = r"./"+str(input())+".dat"
-                        print("output file for DAQ :", DAQ_outFile)
+                        print("DAQ output file:", DAQ_outFile)
                         if (DAQ_ParamsLoaded == 0):
                             picoscopes = ['IW114/0004']
                             daq.seriesInitDaq(picoscopes[0])
