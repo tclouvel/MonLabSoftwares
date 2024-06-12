@@ -270,9 +270,9 @@ while(EndFlag==0):
             elif(VComm=="DAQ"):
                 print("Strart DAQ with default parameters? (y/n): ")
                 DAQ_default = str(input())
-                if (DAQ_default=="n"):
+                if (DAQ_default=="n" or DAQ_default=="no" or DAQ_default=="N" or DAQ_default=="No"):
                     print("Option not implemented yet sorry :( ")
-                elif (DAQ_default=="y"):
+                elif (DAQ_default=="y" or DAQ_default=="yes" or DAQ_default=="Y" or DAQ_default=="Yes"):
                     try:
                         outFile = r"./example.dat"
                         print("output file for DAQ:", outFile)
@@ -287,9 +287,12 @@ while(EndFlag==0):
                         daq.seriesCollectData(outFile)
                         daq.seriesCloseDaq()    
                     except:
-                        print("An error occured during DAQ, safely ramping down voltage")
+                        print("An error occured during DAQ.")
+                        CommandFlag=1
                         EndFlag=1
-                        print("Ramping voltage down now!")               
+                        print("Ramping voltage down now!") 
+                else:
+                    print(DAQ_default, " is not a valid input")
             elif(VComm=="NI"):
                 print("Enter new below threshold increment voltage (0.1f): ")
                 NormIncrement = float(input())
